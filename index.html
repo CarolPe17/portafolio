@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Carol Peña Contreras — AI Engineer & Full Stack Developer</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --bg-soft: #12151c;
+    --card: #161a23;
+    --border: #232835;
+    --text: #e8eaf0;
+    --text-dim: #9aa1b2;
+    --accent: #b794f6;
+    --accent-soft: rgba(183, 148, 246, 0.10);
+    --accent2: #d6a4c9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    background:
+      radial-gradient(40% 35% at 15% 8%, rgba(183, 148, 246, 0.09), transparent 70%),
+      radial-gradient(35% 30% at 88% 20%, rgba(214, 164, 201, 0.06), transparent 70%),
+      radial-gradient(45% 40% at 50% 95%, rgba(183, 148, 246, 0.05), transparent 70%);
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-3%, 2%) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body::before { animation: none; }
+  }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 72px 24px 96px; }
+
+  header {
+    margin-bottom: 64px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .avatar {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 6px var(--accent-soft);
+    flex-shrink: 0;
+  }
+  .header-text { flex: 1; min-width: 260px; }
+  .eyebrow {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #5fe3a1;
+    box-shadow: 0 0 0 0 rgba(95, 227, 161, 0.6);
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(95, 227, 161, 0.5); }
+    70%  { box-shadow: 0 0 0 7px rgba(95, 227, 161, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(95, 227, 161, 0); }
+  }
+  h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .subtitle { color: var(--text-dim); font-size: 18px; margin-bottom: 24px; }
+  .contact { display: flex; flex-wrap: wrap; gap: 10px; }
+  .contact a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 8px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .contact a:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  section { margin-bottom: 56px; }
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bio { color: var(--text-dim); font-size: 16px; max-width: 70ch; }
+
+  .project {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 18px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .project:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .flow-node {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 7px;
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .shots img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: zoom-in;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .shots img:hover {
+    border-color: var(--accent);
+    transform: scale(1.015);
+  }
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 6, 10, 0.88);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 100;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .project-title { font-size: 18px; font-weight: 600; }
+  .project-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .project-desc { color: var(--text-dim); font-size: 15px; margin-bottom: 16px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12px;
+    color: var(--text-dim);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px 28px;
+  }
+  .skill-group h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .skill-bar { margin-bottom: 10px; }
+  .skill-bar:last-child { margin-bottom: 0; }
+  .skill-bar-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .skill-bar-track {
+    height: 5px;
+    border-radius: 100px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+  }
+
+  .exp-item { margin-bottom: 20px; }
+  .exp-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .exp-role { font-weight: 600; font-size: 15px; }
+  .exp-date { color: var(--text-dim); font-size: 13px; }
+  .exp-desc { color: var(--text-dim); font-size: 14px; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 32px; }
+    .wrap { padding: 48px 18px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="avatar" src="profile.png" alt="Ana Carol Peña Contreras">
+    <div class="header-text">
+      <div class="eyebrow"><span class="dot"></span>Disponible para proyectos freelance</div>
+      <h1>Ana Carol Peña Contreras</h1>
+      <p class="subtitle">AI Engineer · Full Stack Developer — arquitectura, deployments, agentes de IA y RAG</p>
+      <div class="contact">
+        <a href="mailto:anacarolpc11@gmail.com">anacarolpc11@gmail.com</a>
+        <a href="https://wa.me/522411980152" target="_blank" rel="noopener">WhatsApp: 241 198 0152</a>
+        <a href="https://linkedin.com/in/carolpe03" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <h2>Sobre mí</h2>
+    <p class="bio">
+      AI Engineer y Full Stack Developer con más de 2 años de experiencia en agentes de IA, soluciones
+      RAG y automatizaciones empresariales en producción. Trabajo el proyecto completo: diseño de
+      arquitectura, base de datos, backend, frontend y deployment en la nube. He construido bots
+      conversacionales con LLMs, integraciones RPA con portales externos, pipelines de automatización de
+      reportes y sistemas de búsqueda documental con IA generativa — siempre con foco en que funcionen
+      de verdad en entornos reales, no solo en demo.
+    </p>
+  </section>
+
+  <section class="reveal">
+    <h2>Proyectos destacados</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Bot conversacional con IA para cotización de seguros</div>
+        <div class="project-badge">IA + RPA</div>
+      </div>
+            <div class="flow">
+        <span class="flow-node">WhatsApp</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">LLM</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">RPA</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Portal aseguradora</span>
+      </div>
+      <div class="shots">
+        <img src="nexo-1.png" alt="Asistente de renovaciones de Nexo cotizando una póliza" loading="lazy">
+        <img src="nexo-2.png" alt="Configuración del bot y credenciales en Nexo" loading="lazy">
+        <img src="nexo-3.png" alt="Paquetes personalizados de cotización en Nexo" loading="lazy">
+      </div>
+<p class="project-desc">
+        Bot de WhatsApp que usa un LLM para entender y limpiar los datos del usuario, cotiza pólizas en
+        tiempo real interactuando por RPA con el portal de una aseguradora, y valida cada dato contra
+        reglas de negocio antes de confirmar. Elevó la tasa de igualación de primas en renovaciones de
+        41% a cerca del 90%, con manejo de sesiones concurrentes por cuenta para escalar a múltiples
+        usuarios al mismo tiempo.
+      </p>
+      <div class="tags">
+        <span class="tag">LLM</span>
+        <span class="tag">RPA</span>
+        <span class="tag">WhatsApp Business API</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Azure</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Plataforma de marketing conversacional</div>
+        <div class="project-badge">Backend + Admin</div>
+      </div>
+            <div class="flow">
+        <span class="flow-node">Admin (Next.js)</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Backend (NestJS)</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">WhatsApp API</span>
+      </div>
+      <div class="shots">
+        <img src="achtli-1.png" alt="Dashboard de Achtli con métricas de campañas de WhatsApp" loading="lazy">
+        <img src="achtli-2.png" alt="Configuración del asistente de IA Chatia en Achtli" loading="lazy">
+        <img src="achtli-3.png" alt="Contact Center de Achtli con conversaciones de WhatsApp" loading="lazy">
+      </div>
+<p class="project-desc">
+        Plataforma de marketing por WhatsApp construida desde cero como proyecto propio: backend en
+        NestJS, almacenamiento en Azure Storage, y un panel de administración completo para campañas,
+        contactos, contact center y un asistente de IA (Chatia) configurable por cada cuenta — todo el
+        producto, de la base de datos a la interfaz que usa el cliente final.
+      </p>
+      <div class="tags">
+        <span class="tag">NestJS</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">Azure Storage</span>
+        <span class="tag">WhatsApp API</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Buscador documental con RAG propio</div>
+        <div class="project-badge">RAG · desarrollo propio</div>
+      </div>
+            <div class="flow">
+        <span class="flow-node">Documentos</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Kernel Memory + Azure OpenAI</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Bot Teams</span>
+      </div>
+      <div class="shots">
+        <img src="arabela-1.png" alt="Dashboard de trazabilidad del RAG con métricas de respuestas" loading="lazy">
+        <img src="arabela-2.png" alt="Bot RAG respondiendo una consulta en Microsoft Teams" loading="lazy">
+      </div>
+<p class="project-desc">
+        Sistema de búsqueda documental construido desde cero (RAG propio, no una integración de
+        terceros) usando Kernel Memory y Azure OpenAI sobre backend .NET, con bot integrado a Microsoft
+        Teams vía Adaptive Cards. Incluye un dashboard de trazabilidad propio que mide relevancia,
+        tasa de respuestas sin resolver y costo por consulta, para poder diagnosticar y mejorar la
+        calidad del RAG en producción.
+      </p>
+      <div class="tags">
+        <span class="tag">RAG</span>
+        <span class="tag">.NET</span>
+        <span class="tag">Azure OpenAI</span>
+        <span class="tag">Microsoft Teams</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Agente conversacional de reportes gerenciales</div>
+        <div class="project-badge">Copilot Studio + ERP</div>
+      </div>
+            <div class="flow">
+        <span class="flow-node">Usuario (Teams)</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Copilot Studio</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Power Automate</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Dynamics 365 F&O</span>
+      </div>
+      <div class="shots">
+        <img src="gestia-1.png" alt="Menú de Gerencia del bot con reportes de facturas" loading="lazy">
+        <img src="gestia-2.png" alt="Bot respondiendo una consulta de días de vacaciones" loading="lazy">
+        <img src="gestia-3.png" alt="Menú principal del bot con las áreas disponibles" loading="lazy">
+      </div>
+<p class="project-desc">
+        Bot construido con Copilot Studio y Power Automate que responde consultas en lenguaje natural
+        sobre reportes de ventas, contabilidad, marketing (leads ganados) y minutos por proyecto,
+        además de autoservicio de RH (vacaciones, políticas), obteniendo los datos directamente de
+        Dynamics 365 F&amp;O — sin que el usuario tenga que entrar al ERP ni pedirle el dato a otra persona.
+      </p>
+      <div class="tags">
+        <span class="tag">Copilot Studio</span>
+        <span class="tag">Power Automate</span>
+        <span class="tag">Dynamics 365 F&amp;O</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Automatización de reportes de ventas</div>
+        <div class="project-badge">Automatización</div>
+      </div>
+      <div class="flow">
+        <span class="flow-node">ERP/CRM</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Agregación</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Excel</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Correo (aprobación)</span>
+      </div>
+      <p class="project-desc">
+        Sistema que agrega datos de ventas y autoconsumo desde ERP y CRM, clasifica y prorratea más de
+        5,000 cuentas en menos de 3 minutos con 96.8% de acierto, genera el reporte en Excel y lo envía
+        por correo con un flujo de aprobación previa. Desplegado en Azure con manejo seguro de
+        credenciales vía Key Vault.
+      </p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">ERP/CRM</span>
+        <span class="tag">Azure</span>
+        <span class="tag">Power BI</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">RAG para recomendación de estudios de laboratorio + confirmación de citas</div>
+        <div class="project-badge">RAG + integraciones</div>
+      </div>
+      <div class="flow">
+        <span class="flow-node">Usuario</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">RAG</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Meta API</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">HubSpot</span>
+      </div>
+      <p class="project-desc">
+        Sistema RAG que recomienda estudios de laboratorio en función de la consulta del usuario,
+        indexando más de 200 documentos e integración con la API de Meta para enviar plantillas de
+        WhatsApp de confirmación de citas, conectado a HubSpot para dar seguimiento a cada contacto. En
+        producción atiende alrededor de 500 consultas diarias.
+      </p>
+      <div class="tags">
+        <span class="tag">RAG</span>
+        <span class="tag">Meta API</span>
+        <span class="tag">WhatsApp Templates</span>
+        <span class="tag">HubSpot</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Lector de identificaciones con visión por computadora</div>
+        <div class="project-badge">Visión + OCR</div>
+      </div>
+            <div class="flow">
+        <span class="flow-node">Credencial</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Visión + OCR</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">ERP</span>
+      </div>
+<p class="project-desc">
+        Solución que usa visión por computadora para leer credenciales de identificación desde una foto,
+        extraer los datos (nombre, CURP, domicilio, etc.) automáticamente y subirlos directo a un ERP —
+        elimina por completo la captura manual y el margen de error de transcribir el dato a mano.
+      </p>
+      <div class="tags">
+        <span class="tag">Visión por computadora</span>
+        <span class="tag">OCR</span>
+        <span class="tag">ERP</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <div class="project-title">Conteo de pasajeros con visión por computadora</div>
+        <div class="project-badge">Visión por computadora</div>
+      </div>
+            <div class="flow">
+        <span class="flow-node">Cámara</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Modelo de visión</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">Conteo en tiempo real</span>
+      </div>
+<p class="project-desc">
+        Piloto de conteo automático de pasajeros en rutas de transporte público usando visión por
+        computadora, validado en campo como alternativa confiable al conteo manual que hoy depende de
+        una persona a bordo contando y registrando a mano.
+      </p>
+      <div class="tags">
+        <span class="tag">Visión por computadora</span>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="reveal">
+    <h2>Habilidades técnicas</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>Dominio principal</h3>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>IA Generativa & RAG</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 95%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>Backend (Node.js / .NET / Python)</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 90%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>Arquitectura & deployment en Azure</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 85%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>Automatización (RPA / Power Platform)</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 85%"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-head"><span>Frontend (React / Next.js)</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width: 70%"></div></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Stack & herramientas</h3>
+        <div class="tags">
+          <span class="tag">RAG</span>
+          <span class="tag">Visión por computadora</span>
+          <span class="tag">Copilot Studio</span>
+          <span class="tag">OpenAI API</span>
+          <span class="tag">Azure AI Services</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">.NET</span>
+          <span class="tag">Python</span>
+          <span class="tag">React</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Qdrant</span>
+          <span class="tag">Dataverse</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Azure DevOps</span>
+          <span class="tag">Power Automate</span>
+          <span class="tag">Dynamics 365</span>
+          <span class="tag">WhatsApp Business API</span>
+          <span class="tag">HubSpot</span>
+          <span class="tag">Microsoft Teams</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Experiencia</h2>
+    <div class="exp-item">
+      <div class="exp-head">
+        <span class="exp-role">AI Engineer / Full Stack Developer</span>
+        <span class="exp-date">Mayo 2025 – Presente</span>
+      </div>
+      <p class="exp-desc">
+        Diseño de arquitectura, desarrollo de agentes de IA en producción, servicios backend en Node.js
+        y .NET integrados con ERPs/CRMs, frontends en React/Next.js, soluciones RAG, automatización de
+        procesos financieros, agentes conversacionales multicanal y despliegue en Azure.
+      </p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-head">
+        <span class="exp-role">Prácticas profesionales — Agentes conversacionales</span>
+        <span class="exp-date">Enero 2025 – Abril 2025</span>
+      </div>
+      <p class="exp-desc">
+        Desarrollo de agentes con Copilot Studio conectados a ERP/CRM y flujos en Power Automate.
+      </p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-head">
+        <span class="exp-role">Formación dual — Dynamics 365 F&amp;O</span>
+        <span class="exp-date">Marzo 2024 – Diciembre 2024</span>
+      </div>
+      <p class="exp-desc">
+        Configuración e integraciones en Dynamics 365 F&amp;O, micro-agentes embebidos y apps con Power Apps.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    Ingeniería en Desarrollo y Gestión de Software — Universidad Tecnológica de Tlaxcala · 2025
+  </footer>
+
+</div>
+
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    observer.observe(el);
+  });
+
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.shots img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+    });
+  });
+  lightbox.addEventListener('click', function () {
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
+  });
+</script>
+</body>
+</html>
